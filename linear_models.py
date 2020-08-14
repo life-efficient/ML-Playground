@@ -13,16 +13,17 @@ class LinearRegression:
         self.w = new_w ## set this instance's weights to the new weight value passed to the function
         self.b = new_b ## do the same for the bias
 
-    def loss(self, X, Y, y_hat= None):
+    def loss(self, Y, y_hat= None, X= None):
         if y_hat is None:
             y_hat = self(X)
         diff = y_hat - Y
-        squares = np.squared(diff)
+        squares = np.square(diff)
         mean = np.mean(squares)
         return mean
 
-    def grid_search(self, X, Y, limit= 20, step=1):
-
+    def grid_search(self, X, Y, y_hat=None, limit= 20, step=1):
+        if y_hat is None:
+            y_hat = self(X)
         best_weights = 0 ## no best weight found yet
         best_bias = 0 ## no best bias found yet
         lowest_cost = float('inf') ## initialize it very high (how high can it be?)
